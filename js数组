@@ -1,0 +1,107 @@
+数组
+1.定义
+    按次序排列的一组值
+    从0开始编号
+    可定义后再赋值 -》
+
+        var arr =[];
+        arr['0']='a';
+        arr['1']='b';
+    任何类型的值都可放入数组
+    如对象 {a:1}
+      数组[1,2,3] ->成为多维数组（数组元素里还是数组）
+      函数 function(){}
+ 2.数组本质
+    typeof 返回为object
+
+    特殊性 -》键名为有序整数
+    Object.keys()
+    可以返回数组的所有键名
+
+    对象的键名一律为字符串！
+
+    数组无法用点结构来读取成员，只能用方括号结构arr[]
+3length 属性 -》动态的值
+    即为键名最大整数加1
+    可随时增减数组成员
+
+    var arr = [1,2,3];
+    arr.length = 2;
+    arr // 1 2
+    所以清空数组可以用 arr.length = 0来实现
+
+    若length设置大于当前个数 则新增的会为 undefined
+
+    数组本质是为一种对象！！ 即可以添加属性
+    若没有整数键，则length依然为0+1
+4 in运算符
+    检查某个键名是否存在
+    var arr = [1,a,3];
+    a in arr // true;
+    '2' in arr // true;
+    4 in arr // false;
+
+    若某个数组位置为空 则in返回结果为false
+
+5. for..in循环和数组遍历
+
+    var  a =[1,2,3];
+    a.foo =true;
+
+    for(var i in a){
+        console.log(a)
+
+    }
+    // 1 2 3  foo
+    会遍历到非整数键foo
+
+    所以遍历数组尽量用for循环或者while循环
+    for(i=0;i<a.length;i++){
+    console.log(a[i])
+    }
+    foreach也可以遍历数组
+    a.forEach(function(a)){
+    console.log(a)
+
+    }
+6.数组空位
+    不影响length属性
+    delete删除数组成员会形成空位 但不影响length属性
+
+    空位不会被遍历到
+
+    undefined表示有元素 但是值为undefined
+    空位会遍历到
+
+    object.keys()
+    查看全部属性
+
+7.类似数组的对象
+    var obj = {
+        0: 1,
+        1: 2,
+        2: 3
+    };
+    不具备数组特有的方法
+    比如数组的push
+
+    // arguments对象
+    function args() { return arguments }
+    var arrayLike = args('a', 'b');
+
+    arrayLike[0] // 'a'
+    arrayLike.length // 2
+    arrayLike instanceof Array // false
+
+    // DOM元素集
+    var elts = document.getElementsByTagName('h3'   );
+    elts.length // 3
+    elts instanceof Array // false
+
+    // 字符串
+    'abc'[1] // 'b'
+    'abc'.length // 3
+    'abc' instanceof Array // false
+
+    slice可以将其变为真正数组
+    var arr =Array.prototype.slice.call(arrayLike)
